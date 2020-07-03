@@ -1,0 +1,41 @@
+.content {
+    grid-area: c;
+    background-color: #F5F6F7;
+}
+
+.content img {
+    height: 150px;
+    width: 100%;
+}
+
+.profileCover {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background: url("https://lh3.googleusercontent.com/proxy/Dy63JtmvnBXqzb2aMoXcdDsi8wB21hVsZyZmcVCae9HUEC2DbVtlG9bQ0yCDcZE5KxkMm4lYiREmeUpNInh7nQPDUNsd5yQUc1iNGYZ_BMADO894EPgxL3wUGcJEjJbB-zyZ74-YYeqqMOWyQBW00m_riS3P83-Ep2-1v4zMQkEJqqWNzr1WlAPXbSFqPdKxVTdhju-RKIFqG8U48CxeSQqX6_Z54FswnElkuhoIOekKjW6RrW2-h9TsL5VGvSLV6MBgmxtbwQtykNdggGbD15Jqhtll39TvaGyAn6sR7u2gvoqp1Q") 50% 50% / cover no-repeat;
+}
+
+.userAvatar {
+
+    position: absolute;
+    bottom: -30px;
+    left: 10px;
+    width: 168px;
+    height: 168px;
+    border-radius: 50%;
+    background-color: #E9EBEE;
+    border: 4px solid #b7b5b5;
+    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRc96kcLicYy25CFi7P_ocMargwSC_vjRxIMg&usqp=CAU") 50% 50% / cover no-repeat;
+}
+
+.userName {
+    color: #000000;
+    font-size: 24px;
+    padding-left: 170px;
+}
+
+.tools {
+    height: 43px;
+    width: 100%;
+    background-color: #ffffff;
+}

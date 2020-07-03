@@ -1,0 +1,28 @@
+.searchBar {
+    height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.search {
+    height: 100%;
+    border: none;
+    outline: none;
+    min-width: 370px;
+}
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: #4080FF;
+    width: 46px;
+    height: 24px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.btnImg {
+    width: 16px;
+    height: 16px;
+}
