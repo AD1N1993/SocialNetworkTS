@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./Header.module.css"
+import s from "./Header.module.scss"
 import Searchbar from "./Searchbar/Searchbar";
 import Logo from "./Logo/Logo";
 import Links from "./Links/Links";

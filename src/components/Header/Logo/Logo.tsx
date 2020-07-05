@@ -1,11 +1,11 @@
 import React from "react";
-import s from "./Logo.module.css";
+import s from "./Logo.module.scss";
 
 const Logo = () => {
     return (
         <a className={s.link} href="#">
             <img className={s.logo}
-                 src="https://lh3.googleusercontent.com/proxy/JGLh8vmIN4UGqifw1nwbttljchZY1c-iA6BWOniN0iWwbaM-ChwO-ynm9QxtqzkieAdZmL2vuE6YgPETa_A8ydtQzHflyQNdLhzfQVGish70j47Fm_gjZ3wRpBedozXLhfg97EA_NntAPyajQc9f3TxDZUOxUUj66eYoliR_c41w"
+                 src="https://i.pinimg.com/originals/fa/17/c8/fa17c85d9a88e2361253a6fba7bde385.png"
                  alt="F"/></a>
     );
 }
