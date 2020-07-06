@@ -1,17 +1,12 @@
 import React from "react";
 import s from "./Profile.module.scss";
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = () => {
     return (
         <div className={s.content}>
-            <div className={s.profileCover}>
-                <div className={s.userAvatar}> </div>
-            </div>
-            <div className={s.tools}>
-                <div className={s.userName}>Yury Yury</div>
-            </div>
-            <div className="descr">description</div>
+            <ProfileInfo />
             <MyPosts/>
         </div>
     );
