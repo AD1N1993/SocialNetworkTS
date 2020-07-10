@@ -2,8 +2,9 @@ import React from "react";
 import s from "./Post.module.scss";
 
 type PostPropsType = {
-  message: string,
-	likes: string
+    message: string,
+	likes: number
+    id: number
 }
 
 const Post = (props:PostPropsType) => {
