@@ -8,32 +8,37 @@ import Navbar from "./components/Navbar/Nav";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
-import {DialogsDataType, MessagesDataType, PostDataType} from "./redux/state";
-
+import {ActionsTypes, AddPostType, OnChangeTextArea, RootStateType} from "./redux/state";
 
 type AppPropsType = {
-    dialogsData: Array<DialogsDataType>
-    messagesData: Array<MessagesDataType>
-    postData: Array<PostDataType>
+    state: RootStateType
+    dispatch: (action: ActionsTypes) => void
 }
 
-const App = (props:AppPropsType) => {
+const App = (props: AppPropsType) => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
-                <Navbar/>
+                <Navbar friendsData={props.state.sideBarFriend.friendsData}/>
                 <div className={"content"}>
                     <Route path={'/profile'}
                            render={() =>
-                               <Profile postData={props.postData}/>
-                    }/>
+                               <Profile
+                                   postData={props.state.profilePage.postData}
+
+                                   newPostText={props.state.profilePage.newPostText}
+
+                                   dispatch={props.dispatch}
+                               />
+                           }/>
                     <Route path={'/dialogs'}
                            render={() =>
-                                <Dialogs dialogsData={props.dialogsData}
-                                         messagesData={props.messagesData}
-                                />
-                    }/>
+                               <Dialogs dialogsData={props.state.messagesPage.dialogsData}
+                                        messagesData={props.state.messagesPage.messagesData}
+                               />
+
+                           }/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                 </div>
@@ -43,3 +48,4 @@ const App = (props:AppPropsType) => {
 };
 
 export default App;
+

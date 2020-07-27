@@ -18,11 +18,20 @@ const Message = (props: MessageTypeProps) => {
     return <div className={s.dialogs__message}>{props.message}</div>
 }
 
+let newMessage= React.createRef<HTMLTextAreaElement>();
+
+const sendMessage = ()=>{
+
+    alert(newMessage.current?.value);
+}
+
 export function Messages(props:MessagesDataPropsType) {
     let messageElements = props.messagesData.map(message => <Message message={message.message} id={message.id}/>)
        return (
             <div className={s.dialogsMessages}>
                 { messageElements }
+                <textarea ref={newMessage}> </textarea>
+                <button onClick={sendMessage}>send</button>
             </div>
     );
 }

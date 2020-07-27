@@ -1,8 +1,13 @@
 import React from "react";
 import s from "./Nav.module.scss";
 import {NavLink} from "react-router-dom";
+import {Friends} from "./Sidebar/Sidebar";
+import {FriendDataType} from "../../redux/state";
 
-const Navbar = () => {
+type FriendsDataTypeProps = {
+    friendsData: Array<FriendDataType>
+}
+const Navbar = (props:FriendsDataTypeProps) => {
     return (
         <nav className={s.nav}>
             <ul className={s.navList}>
@@ -27,7 +32,11 @@ const Navbar = () => {
                         Music</NavLink>
                 </li>
             </ul>
+            <Friends friendsData={props.friendsData}/>
         </nav>
+
+
+
     );
 };
 

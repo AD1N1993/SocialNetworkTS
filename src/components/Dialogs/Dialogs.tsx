@@ -15,6 +15,7 @@ export function Dialogs(props:DialogsPropsType) {
         <div className={s.dialogs}>
             <DialogItem dialogsData={props.dialogsData}/>
             <Messages messagesData={props.messagesData}/>
+
         </div>
     );
 }
