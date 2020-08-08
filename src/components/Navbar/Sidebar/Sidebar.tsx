@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Sidebar.module.scss"
-import {FriendDataType} from "../../../redux/state";
+import {FriendDataType} from "../../../redux/store";
 
 type FriendsDataTypeProps = {
    friendsData: Array<FriendDataType>

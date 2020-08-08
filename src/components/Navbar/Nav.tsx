@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Nav.module.scss";
 import {NavLink} from "react-router-dom";
 import {Friends} from "./Sidebar/Sidebar";
-import {FriendDataType} from "../../redux/state";
+import {FriendDataType} from "../../redux/store";
 
 type FriendsDataTypeProps = {
     friendsData: Array<FriendDataType>

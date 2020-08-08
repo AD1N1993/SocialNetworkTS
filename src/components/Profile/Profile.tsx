@@ -1,14 +1,12 @@
 import React from "react";
 import s from "./Profile.module.scss";
-import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ActionsTypes, AddPostType, OnChangeTextArea, PostDataType} from "../../redux/state";
+import {ReduxStoreType, StoreType} from "../../redux/store";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
 type PostDataPropsType = {
-    postData: Array<PostDataType>
-    newPostText: string
-    dispatch: (action: ActionsTypes) => void
+   store: ReduxStoreType
 
 
 }
@@ -17,9 +15,9 @@ const Profile = (props: PostDataPropsType) => {
     return (
         <div className={s.content}>
             <ProfileInfo/>
-            <MyPosts postData={props.postData}
-                     newPostText={props.newPostText}
-                     dispatch={props.dispatch}
+            <MyPostsContainer store={props.store}
+
+
             />
         </div>
     );

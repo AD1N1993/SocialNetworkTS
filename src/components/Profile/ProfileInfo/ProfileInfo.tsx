@@ -12,6 +12,9 @@ const ProfileInfo = () => {
                 <div className={s.userName}>Yury Yury</div>
             </div>
             <div className="descr">description</div>
+            
+            
+
         </div>
     );
 };
