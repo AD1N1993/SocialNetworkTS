@@ -30,7 +30,7 @@ const Friend = (props: FriendDataTypeProps) => {
 }
 export const Friends = (props:FriendsDataTypeProps) => {
      let Friends = props.friendsData.map(friend =>
-         <Friend id={friend.id} avatarLink={friend.avatarLink} name={friend.name}/>)
+         <div key={friend.id}><Friend id={friend.id} avatarLink={friend.avatarLink} name={friend.name}/></div>)
 
     return (
         <div className={s.friendsBlock}>

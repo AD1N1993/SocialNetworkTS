@@ -12,7 +12,7 @@ type PostDataTypePropsType = {
 
 const MyPosts = (props: PostDataTypePropsType) => {
 
-    let posts = props.postData.map(p => <Post message={p.post} likes={p.likes} id={p.id}/>)
+    let posts = props.postData.map(p => <div key={p.id}><Post message={p.post} likes={p.likes} id={p.id}/></div>)
     const addPostOnClick = () => {
         props.addPostOnClick();
     }
@@ -20,9 +20,8 @@ const MyPosts = (props: PostDataTypePropsType) => {
     const onChangeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let textPost = e.currentTarget.value;
         props.onChangeTextArea(textPost);
-
-
     }
+
     return (
         <div className={s.posts}>
             <h2 className={s.title}>My posts</h2>

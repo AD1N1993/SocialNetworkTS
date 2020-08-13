@@ -25,12 +25,11 @@ const App = (props: AppPropsType) => {
             <div className={"content"}>
                 <Route path={'/profile'}
                        render={() =>
-                           <Profile store={props.store}/>
+                           <Profile />
                        }/>
                 <Route path={'/dialogs'}
                        render={() =>
                            <Dialogs store={props.store}/>
-
                        }/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>

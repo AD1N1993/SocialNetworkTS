@@ -32,7 +32,6 @@ const profileReducer = (state: ProfilePageType = intialState, action: ActionsTyp
             state.newPostText = "";
             return state;
         case ON_CHANGE_TEXTAREA:
-            console.log(action.textPost)
             state.newPostText = action.textPost;
             return state;
         default:
