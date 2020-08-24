@@ -3,7 +3,7 @@ import {ActionsTypes, MessagesDataType, MessagesPage} from "./store";
 const ADD_MESSAGE = "ADD-MESSAGE"
 const ON_CHANGE_MESSAGE_TEXT = "ON CHANGE MESSAGE TEXT";
 
-let initialState:MessagesPage ={
+let initialState: MessagesPage = {
     dialogsData: [
         {id: 1, name: "Dimych"},
         {id: 2, name: "Andrew"},
@@ -20,23 +20,30 @@ let initialState:MessagesPage ={
         {id: 5, message: "zuMMEr"},
         {id: 6, message: "Dasdas"}
     ],
-    newMessageText:""
+    newMessageText: ""
 }
 
-const dialogsReducer = (state: MessagesPage= initialState, action: ActionsTypes) => {
+const dialogsReducer = (state: MessagesPage = initialState, action: ActionsTypes): MessagesPage => {
 
     switch (action.type) {
         case ON_CHANGE_MESSAGE_TEXT:
-            state.newMessageText = action.textMessage
-            return state
+            return {
+                ...state,
+                newMessageText: action.textMessage
+            };
+
         case ADD_MESSAGE:
             const newMessage: MessagesDataType = {
                 id: new Date().getTime(),
                 message: state.newMessageText,
             }
-            state.messagesData.push(newMessage);
-            state.newMessageText = "";
-            return state
+
+            return {
+                ...state,
+                newMessageText: "",
+                messagesData: [...state.messagesData, newMessage],
+            }
+
         default:
             return state
     }

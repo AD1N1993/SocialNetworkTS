@@ -8,20 +8,15 @@ import Navbar from "./components/Navbar/Nav";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
-import {ReduxStoreType} from "./redux/store";
-import store from "./redux/redux-store";
+import {Users} from "./components/Users/Users";
 
-type AppPropsType = {
-    store: ReduxStoreType
-}
 
-const App = (props: AppPropsType) => {
-    let state = store.getState();
+const App = () => {
 
     return (
         <div className="app-wrapper">
             <Header/>
-            <Navbar friendsData={state.sideBarFriend.friendsData}/>
+            <Navbar />
             <div className={"content"}>
                 <Route path={'/profile'}
                        render={() =>
@@ -29,10 +24,11 @@ const App = (props: AppPropsType) => {
                        }/>
                 <Route path={'/dialogs'}
                        render={() =>
-                           <Dialogs store={props.store}/>
+                           <Dialogs />
                        }/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
+                <Route path={'/users'} render={() => <Users/>}/>
             </div>
         </div>
 

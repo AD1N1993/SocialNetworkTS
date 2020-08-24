@@ -3,12 +3,12 @@ import {ActionsTypes, PostDataType,} from "./store";
 const ADD_POST = "ADD-POST";
 const ON_CHANGE_TEXTAREA = "ON-CHANGE-TEXTAREA";
 
-type ProfilePageType = {
+export type ProfilePageType = {
     postData: Array<PostDataType>
     newPostText: string
 }
 
-let intialState: ProfilePageType = {
+let initialState: ProfilePageType = {
     postData: [
         {id: 1, post: "It's first post", likes: 10},
         {id: 2, post: "It's second post", likes: 110},
@@ -18,8 +18,7 @@ let intialState: ProfilePageType = {
     newPostText: ""
 }
 
-
-const profileReducer = (state: ProfilePageType = intialState, action: ActionsTypes): ProfilePageType => {
+const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
 
     switch (action.type) {
         case ADD_POST:
@@ -28,12 +27,18 @@ const profileReducer = (state: ProfilePageType = intialState, action: ActionsTyp
                 post: state.newPostText,
                 likes: 0
             };
-            state.postData.push(newPost);
-            state.newPostText = "";
-            return state;
+            return {
+                ...state,
+                newPostText: "",
+                postData: [...state.postData, newPost]
+            }
+
         case ON_CHANGE_TEXTAREA:
-            state.newPostText = action.textPost;
-            return state;
+            return {
+                ...state,
+                newPostText: action.textPost
+            };
+
         default:
             return state
     }

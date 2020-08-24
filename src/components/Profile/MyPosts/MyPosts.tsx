@@ -3,12 +3,24 @@ import s from "./MyPosts.module.scss";
 import Post from "./Post/Post";
 import {PostDataType} from "../../../redux/store";
 
-type PostDataTypePropsType = {
+export type MapStateToPropsTypes = {
     postData: Array<PostDataType>
     newPostText: string
+}
+
+export type MapDispatchToPropsTypes = {
     onChangeTextArea: (textPost: string) => void
     addPostOnClick: () => void
+
 }
+
+export type OwnPropsTypes = {
+
+}
+
+type PostDataTypePropsType = MapStateToPropsTypes & MapDispatchToPropsTypes & OwnPropsTypes
+
+
 
 const MyPosts = (props: PostDataTypePropsType) => {
 
