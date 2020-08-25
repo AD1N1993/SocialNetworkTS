@@ -1,0 +1,23 @@
+.userWrapper{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.leftPart{
+  flex: 1 1;
+}
+.avatarLink{
+  display: inline-block;
+  height: 30px;
+}
+.avatar{
+  width: 50px;
+  height: 30px;
+}
+.label{
+  //display: inline-block;
+}
+
+.btn{
+  display: block;
+}

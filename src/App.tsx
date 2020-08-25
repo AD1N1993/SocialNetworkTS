@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar/Nav";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
-import {Users} from "./components/Users/Users";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 const App = () => {
@@ -28,7 +28,7 @@ const App = () => {
                        }/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
-                <Route path={'/users'} render={() => <Users/>}/>
+                <Route path={'/users'} render={() => <UsersContainer />}/>
             </div>
         </div>
 
