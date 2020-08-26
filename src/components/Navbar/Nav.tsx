@@ -27,6 +27,11 @@ const Navbar = () => {
                         <img className={s.ico} src="https://image.flaticon.com/icons/svg/1289/1289812.svg" alt="ico"/>
                         Music</NavLink>
                 </li>
+                <li className={s.navListItem}>
+                    <NavLink className={s.navListLink} activeClassName={s.active} to="users">
+                        <img className={s.ico} src="https://image.flaticon.com/icons/svg/1289/1289812.svg" alt="ico"/>
+                        Users</NavLink>
+                </li>
             </ul>
             {/*<Friends friendsData={props.friendsData}/>*/}
         </nav>

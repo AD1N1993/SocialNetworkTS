@@ -9,11 +9,15 @@ type UserLocationType = {
 
 export type UserDataType = {
     id: number
-    firstName: string
+    name: string
     status: string
     followed: boolean
     avatar:string
-    location: UserLocationType
+    photos:{
+        small:string|null
+        large:string|null
+    }
+    // location: UserLocationType
 }
 export type usersPageType = {
     usersData: Array<UserDataType>

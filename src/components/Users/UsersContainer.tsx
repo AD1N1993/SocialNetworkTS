@@ -1,11 +1,9 @@
 import {
-
     mapDispatchToPropsType,
-
     mapStateToPropsType,
     OwnPropsTypes,
-    Users
 } from "./Users";
+import Users from "./Users";
 import {connect} from "react-redux";
 import {RootStateRedux} from "../../redux/redux-store";
 import {Dispatch} from "redux";
