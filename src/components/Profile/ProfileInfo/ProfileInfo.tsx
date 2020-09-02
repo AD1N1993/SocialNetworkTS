@@ -24,7 +24,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                     {nameContacts.map(n => {
                         console.log(n)
                         // @ts-ignore
-                        return <li>{n}: {props.profile?.contacts[`${n}`]}</li>
+                        return <li key={n}>{n}: {props.profile?.contacts[`${n}`]}</li>
                     })}
                 </ul>
             </div>
