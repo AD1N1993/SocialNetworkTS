@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from "react";
 import s from "./Message.module.scss"
-import {DialogsDataType, MessagesDataType, PostDataType} from "../../../redux/store";
+
 import {DialogItem} from "../DialogItem/DialogItem";
+import {DialogsDataType, MessagesDataType} from "../../../redux/dialogsReducer";
 
 type MessageTypeProps = {
     message: string

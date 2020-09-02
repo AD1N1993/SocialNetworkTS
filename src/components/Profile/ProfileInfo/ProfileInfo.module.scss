@@ -21,7 +21,11 @@
     border-radius: 50%;
     background-color: #E9EBEE;
     border: 4px solid #b7b5b5;
-    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRc96kcLicYy25CFi7P_ocMargwSC_vjRxIMg&usqp=CAU") 50% 50% / cover no-repeat;
+  img{
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .userName {
@@ -31,7 +35,6 @@
 }
 
 .tools {
-    height: 43px;
     width: 100%;
     background-color: #ffffff;
 }

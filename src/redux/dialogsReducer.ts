@@ -1,7 +1,36 @@
-import {ActionsTypes, MessagesDataType, MessagesPage} from "./store";
 
 const ADD_MESSAGE = "ADD-MESSAGE"
 const ON_CHANGE_MESSAGE_TEXT = "ON CHANGE MESSAGE TEXT";
+
+
+export type DialogsDataType = {
+    id: number,
+    name: string
+}
+
+export type MessagesDataType = {
+    id: number,
+    message: string
+}
+export type MessagesPage = {
+    dialogsData: Array<DialogsDataType>
+    messagesData: Array<MessagesDataType>
+    newMessageText: string
+}
+
+
+
+type AddMessageActionType = {
+    type: "ADD-MESSAGE"
+}
+
+type OnChangeTextMessageActionType = {
+    type: "ON CHANGE MESSAGE TEXT"
+    textMessage: string
+}
+
+
+type ActionsTypes = AddMessageActionType| OnChangeTextMessageActionType
 
 let initialState: MessagesPage = {
     dialogsData: [

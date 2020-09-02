@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from "react";
 import s from "./MyPosts.module.scss";
 import Post from "./Post/Post";
-import {PostDataType} from "../../../redux/store";
+import {PostDataType} from "../../../redux/profileReducer";
+
 
 export type MapStateToPropsTypes = {
     postData: Array<PostDataType>

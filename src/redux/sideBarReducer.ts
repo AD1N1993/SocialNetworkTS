@@ -1,6 +1,13 @@
 
-import {ActionsTypes, FriendDataType, FriendsDataType} from "./store";
 
+export type FriendDataType = {
+    id: number
+    avatarLink: string
+    name: string
+}
+export  type FriendsDataType = {
+    friendsData: Array<FriendDataType>
+}
 
 let initialState:FriendsDataType = {
     friendsData: [
@@ -24,7 +31,7 @@ let initialState:FriendsDataType = {
     ]
 }
 
-const sideBarReducer = (state= initialState,action:ActionsTypes): FriendsDataType => {
+const sideBarReducer = (state= initialState): FriendsDataType => {
 
 
     return state
