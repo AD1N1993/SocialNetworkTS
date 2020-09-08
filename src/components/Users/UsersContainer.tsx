@@ -37,7 +37,9 @@ class UsersContainer extends React.Component<UsersTypeProps,usersPageType> {
 
     componentDidMount() {
         this.props.setToggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,{
+            withCredentials: true
+        })
             .then(response => {
                 this.props.setToggleIsFetching(false);
                 this.props.setUsers(response.data.items);
@@ -47,7 +49,9 @@ class UsersContainer extends React.Component<UsersTypeProps,usersPageType> {
 
     onChangePage = (pageNumber: number) => {
         this.props.setToggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,{
+            withCredentials: true
+        })
             .then(response => {
                 this.props.setUsers(response.data.items);
                 this.props.setToggleIsFetching(false);
@@ -83,28 +87,6 @@ let mapStateToProps = (state: RootStateRedux) => {
         isFetching: state.usersPage.isFetching
     }
 }
-/*let mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
-        onFollow: (userID: number) => {
-            dispatch(onFollowAC(userID));
-        },
-        unFollow: (userID: number) => {
-            dispatch(unFollowAC(userID));
-        },
-        setUsers: (users: Array<UserDataType>) => {
-            dispatch(setUsersAC(users));
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage));
-        },
-        setTotalCount: (totalCountUsers: number) => {
-            dispatch(setTotalCountUsersAC(totalCountUsers));
-        },
-        setIsFetching:(isFetching:boolean)=> {
-            dispatch(setToggleIsFetchingAC(isFetching));
-        }
-    }
-}*/
 
 
 export default connect<mapStateToPropsType, mapDispatchToPropsType, OwnPropsTypes, RootStateRedux>(mapStateToProps,
