@@ -2,14 +2,15 @@ import React from "react";
 import s from "./Header.module.scss"
 import Searchbar from "./Searchbar/Searchbar";
 import Logo from "./Logo/Logo";
-import Links from "./Links/Links";
+import LinksContainer from "./Links/LinksContainer";
 
 const Header = () => {
     return (
         <header className={s.header}>
             <Logo/>
             <Searchbar/>
-            <Links/>
+            <LinksContainer/>
+
         </header>
     );
 };

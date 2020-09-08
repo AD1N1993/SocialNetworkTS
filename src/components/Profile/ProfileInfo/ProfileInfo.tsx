@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./ProfileInfo.module.scss";
-import {ProfileType} from "../../../redux/profileReducer";
+import {ContactType, ProfileType} from "../../../redux/profileReducer";
 import {Preloader} from "../../../common/preloader/preloader";
 
 type ProfileInfoPropsType = {
@@ -21,10 +21,11 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
             <div className={s.tools}>
                 <div className={s.userName}>{props.profile.fullName}</div>
                 <ul className={s.about}>
-                    {nameContacts.map(n => {
-                        console.log(n)
-                        // @ts-ignore
-                        return <li key={n}>{n}: {props.profile?.contacts[`${n}`]}</li>
+                    {nameContacts.map((n:string) => {
+                        // console.log(n)
+                        debugger
+
+                        return <li key={n}>{n}: {props.profile?.contacts[n as keyof ContactType]}</li>
                     })}
                 </ul>
             </div>

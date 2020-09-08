@@ -8,7 +8,7 @@ export type PostDataType = {
     post: string
     likes: number
 }
-type ContactType={
+export type ContactType={
     facebook: string
     github: string
     instagram:string

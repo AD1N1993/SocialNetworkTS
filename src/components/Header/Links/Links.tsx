@@ -2,7 +2,12 @@ import React from "react";
 import s from "./Links.module.scss";
 import {NavLink} from "react-router-dom";
 
-const Links = () => {
+type LinksTypeProps = {
+    login: string | null
+    isAuth:boolean
+}
+
+const Links = (props:LinksTypeProps) => {
     return(
         <div className={s.headerNav}>
             <ul className={s.headerNavList}>
@@ -12,6 +17,8 @@ const Links = () => {
                 <li className={s.headerNavLink}><a href="#">Home</a></li>
                 <li className={s.headerNavLink}><a href="#">Find Friends</a></li>
                 <li className={s.headerNavLink}><a href="#">Create</a></li>
+                {props.isAuth ? props.login: <NavLink  className={s.headerNavLink} to={'/login'}>Login</NavLink>}
+
             </ul>
         </div>
     );
