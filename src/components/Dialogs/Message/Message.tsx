@@ -3,6 +3,7 @@ import s from "./Message.module.scss"
 
 import {DialogItem} from "../DialogItem/DialogItem";
 import {DialogsDataType, MessagesDataType} from "../../../redux/dialogsReducer";
+import { Redirect } from "react-router-dom";
 
 type MessageTypeProps = {
     message: string
@@ -14,6 +15,7 @@ export type MapStateToPropsTypes = {
     messagesData: Array<MessagesDataType>
     dialogsData:Array<DialogsDataType>
     newMessageText: string
+    isAuth: boolean
 }
 
 export type MapDispatchToPropsTypes = {
@@ -42,6 +44,7 @@ export function Messages(props: MessagesDataPropsType) {
     const sendMessage = () => {
         props.sendMessage();
     }
+    if(!props.isAuth) return <Redirect  to={"/login"}/>
     return (
 
         <div className={s.dialogsMessages}>

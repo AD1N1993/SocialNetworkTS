@@ -10,6 +10,7 @@ let mapStateToProps = (state: RootStateRedux) => {
         messagesData: state.messagesPage.messagesData,
         dialogsData:state.messagesPage.dialogsData,
         newMessageText: state.messagesPage.newMessageText,
+        isAuth: state.auth.isAuth
     }
 }
 

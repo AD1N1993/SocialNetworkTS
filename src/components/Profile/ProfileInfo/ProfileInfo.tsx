@@ -12,7 +12,6 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         return <Preloader/>
     }
     let nameContacts = Object.keys(props.profile.contacts);
-    console.log(props.profile.contacts["facebook"])
     return (
         <div className={s.content}>
             <div className={s.profileCover}>

@@ -6,12 +6,13 @@ import {ProfileType} from "../../redux/profileReducer";
 
 type ProfilePropsType = {
     profile: ProfileType | null
+
 }
 
 const Profile = (props:ProfilePropsType) => {
     return (
         <div className={s.content}>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile}  />
             <MyPostsContainer  />
         </div>
     );
