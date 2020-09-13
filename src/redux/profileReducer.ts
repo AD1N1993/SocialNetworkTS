@@ -1,3 +1,6 @@
+import {ThunkAction} from "redux-thunk";
+import {RootStateRedux} from "./redux-store";
+import {usersAPI} from "../api/api";
 
 const ADD_POST = "ADD-POST";
 const ON_CHANGE_TEXTAREA = "ON-CHANGE-TEXTAREA";
@@ -8,30 +11,29 @@ export type PostDataType = {
     post: string
     likes: number
 }
-export type ContactType={
+export type ContactType = {
     facebook: string
     github: string
-    instagram:string
+    instagram: string
     mainLink: string
     twitter: string
     vk: string
     website: string
     youtube: string
 }
-type PhotosType ={
-small: string
+type PhotosType = {
+    small: string
     large: string
 }
 export type ProfileType = {
     aboutMe: string
     contacts: ContactType
-    fullName:string
+    fullName: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
     photos: PhotosType
     userId: number
 }
-
 
 
 type AddPostActionType = {
@@ -45,10 +47,9 @@ type OnChangeTextAreaActionType = {
 
 type SetUserProfile = {
     type: "SET_USER_PROFILE"
-    profile:ProfileType
+    profile: ProfileType
 }
-export type ActionsTypes =  AddPostActionType | OnChangeTextAreaActionType | SetUserProfile
-
+export type ActionsTypes = AddPostActionType | OnChangeTextAreaActionType | SetUserProfile
 
 
 export type ProfilePageType = {
@@ -102,7 +103,17 @@ export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST});
 export const updatePostTextActionCreator = (textPost: string): OnChangeTextAreaActionType =>
     ({type: ON_CHANGE_TEXTAREA, textPost: textPost});
 
-export const setUserProfileAC = (profile: ProfileType):SetUserProfile =>
-        ({ type: SET_USER_PROFILE, profile});
+export const setUserProfileAC = (profile: ProfileType): SetUserProfile =>
+    ({type: SET_USER_PROFILE, profile});
+
+type ThunkProfileType = ThunkAction<Promise<void>, RootStateRedux, unknown, ActionsTypes>
+export const getProfileThunk = (userId: number): ThunkProfileType => {
+    return async (dispatch) => {
+        usersAPI.getProfile(userId).then(response => {
+            dispatch(setUserProfileAC(response.data));
+        })
+    }
+
+}
 
 export default profileReducer;

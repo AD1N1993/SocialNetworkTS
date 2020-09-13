@@ -12,18 +12,23 @@ export const usersAPI = {
     getUsers: (pageNumber: number, pageSize: number) => {
         return instance.get(`users?page=${pageNumber}&count=${pageSize}`)
             .then(response => {
-                return response.data
-            })
+                return response.data;
+            });
     },
     unFollow: (userId: number) => {
         return instance.delete(`follow/${userId}`).then(response => {
-            return response.data.resultCode
-        })
+            return response.data.resultCode;
+        });
     },
     follow: (userId: number) => {
-        return instance.delete(`follow/${userId}`).then(response => {
-            return response.data.resultCode
-        })
+        return instance.post(`follow/${userId}`, {}).then(response => {
+            return response.data.resultCode;
+        });
+    },
+    checkLoginState: () => {
+        return instance.get(`auth/me`);
+    },
+    getProfile: (userId: number) => {
+        return instance.get(`profile/${userId}`);
     }
 }
-

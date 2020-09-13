@@ -29,6 +29,7 @@ const App = () => {
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
                 <Route path={'/users'} render={() => <UsersContainer />}/>
+
             </div>
         </div>
 

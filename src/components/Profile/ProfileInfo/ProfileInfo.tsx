@@ -22,8 +22,6 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <div className={s.userName}>{props.profile.fullName}</div>
                 <ul className={s.about}>
                     {nameContacts.map((n:string) => {
-                        // console.log(n)
-                        debugger
 
                         return <li key={n}>{n}: {props.profile?.contacts[n as keyof ContactType]}</li>
                     })}
