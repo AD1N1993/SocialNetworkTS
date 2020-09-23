@@ -27,7 +27,7 @@ export type OwnPropsTypes = {
 
 }
 
-type MessagesDataPropsType = MapStateToPropsTypes&MapDispatchToPropsTypes&OwnPropsTypes
+export type MessagesDataPropsType = MapStateToPropsTypes&MapDispatchToPropsTypes&OwnPropsTypes
 
 const Message = (props: MessageTypeProps) => {
     return <div className={s.dialogs__message}>{props.message}</div>

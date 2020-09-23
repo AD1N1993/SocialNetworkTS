@@ -1,10 +1,12 @@
 import {ThunkAction} from "redux-thunk";
 import {RootStateRedux} from "./redux-store";
-import {usersAPI} from "../api/api";
+import {profileAPI} from "../api/api";
 
 const ADD_POST = "ADD-POST";
 const ON_CHANGE_TEXTAREA = "ON-CHANGE-TEXTAREA";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_USER_STATUS = "SET_STATUS";
+
 
 export type PostDataType = {
     id: number
@@ -49,13 +51,23 @@ type SetUserProfile = {
     type: "SET_USER_PROFILE"
     profile: ProfileType
 }
-export type ActionsTypes = AddPostActionType | OnChangeTextAreaActionType | SetUserProfile
+type SetUserStatus = {
+    type: "SET_STATUS"
+    status: string
+}
+
+
+export type ActionsTypes = AddPostActionType
+    | OnChangeTextAreaActionType
+    | SetUserProfile
+    | SetUserStatus
 
 
 export type ProfilePageType = {
     postData: Array<PostDataType>
     newPostText: string
     profile: ProfileType | null
+    status: string
 }
 
 let initialState: ProfilePageType = {
@@ -66,7 +78,8 @@ let initialState: ProfilePageType = {
         {id: 4, post: "It's fourth post", likes: 1},
     ],
     newPostText: "",
-    profile: null
+    profile: null,
+    status: "",
 }
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
@@ -92,6 +105,10 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
             return {
                 ...state, profile: action.profile
             }
+        case SET_USER_STATUS:
+            return {
+                ...state, status: action.status
+            }
 
         default:
             return state
@@ -105,15 +122,33 @@ export const updatePostTextActionCreator = (textPost: string): OnChangeTextAreaA
 
 export const setUserProfileAC = (profile: ProfileType): SetUserProfile =>
     ({type: SET_USER_PROFILE, profile});
+export const setUserStatusAC = (status: string): SetUserStatus =>
+    ({type: SET_USER_STATUS, status});
+
 
 type ThunkProfileType = ThunkAction<Promise<void>, RootStateRedux, unknown, ActionsTypes>
 export const getProfileThunk = (userId: number): ThunkProfileType => {
     return async (dispatch) => {
-        usersAPI.getProfile(userId).then(response => {
+        profileAPI.getProfile(userId).then(response => {
             dispatch(setUserProfileAC(response.data));
         })
     }
-
 }
+export const getUserStatusThunk = (userId: number): ThunkProfileType => {
+    return async (dispatch) => {
+        profileAPI.getStatus(userId).then(response => {
+            dispatch(setUserStatusAC(response.data));
+        })
+    }
+}
+export const updateUserStatusThunk = (status: string): ThunkProfileType => {
+    return async (dispatch) => {
+        profileAPI.updateStatus(status).then(response => {
+            if (response.data.resultcode === 0)
+                dispatch(setUserStatusAC(status));
+        })
+    }
+}
+
 
 export default profileReducer;

@@ -2,9 +2,12 @@ import React from "react";
 import s from "./ProfileInfo.module.scss";
 import {ContactType, ProfileType} from "../../../redux/profileReducer";
 import {Preloader} from "../../../common/preloader/preloader";
+import ProfileStatus from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null
+    status: string
+    updateUserStatusThunk: (status: string) => void
 }
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -12,6 +15,8 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         return <Preloader/>
     }
     let nameContacts = Object.keys(props.profile.contacts);
+
+
     return (
         <div className={s.content}>
             <div className={s.profileCover}>
@@ -27,6 +32,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 </ul>
             </div>
             <div className="descr">{props.profile.aboutMe}</div>
+            <ProfileStatus status={props.status} updateUserStatusThunk={props.updateUserStatusThunk}/>
         </div>
     );
 };

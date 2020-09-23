@@ -1,9 +1,11 @@
 import React from "react";
 import {addMessageActionCreator, updateMessageTextActionCreator} from "../../../redux/dialogsReducer";
-import {MapDispatchToPropsTypes, MapStateToPropsTypes, Messages, OwnPropsTypes} from "./Message";
+import {MapDispatchToPropsTypes, MapStateToPropsTypes, Messages,  OwnPropsTypes} from "./Message";
 import {connect} from "react-redux";
 import {RootStateRedux} from "../../../redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
+import {Redirect} from "react-router-dom";
+import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 
 let mapStateToProps = (state: RootStateRedux) => {
     return {
@@ -25,4 +27,9 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
         }
     }
 }
-export const MessagesContainer = connect<MapStateToPropsTypes,MapDispatchToPropsTypes,OwnPropsTypes,RootStateRedux>(mapStateToProps, mapDispatchToProps)(Messages);
+
+
+export const MessagesContainer = compose<React.ComponentType>(
+    connect<MapStateToPropsTypes,MapDispatchToPropsTypes,OwnPropsTypes,RootStateRedux>(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect,
+)(Messages)

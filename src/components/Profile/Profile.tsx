@@ -6,14 +6,16 @@ import {ProfileType} from "../../redux/profileReducer";
 
 type ProfilePropsType = {
     profile: ProfileType | null
+    status: string
+    updateUserStatusThunk: (status: string) => void
 
 }
 
-const Profile = (props:ProfilePropsType) => {
+const Profile = (props: ProfilePropsType) => {
     return (
         <div className={s.content}>
-            <ProfileInfo profile={props.profile}  />
-            <MyPostsContainer  />
+            <ProfileInfo profile={props.profile} status={props.status} updateUserStatusThunk={props.updateUserStatusThunk}/>
+            <MyPostsContainer/>
         </div>
     );
 };

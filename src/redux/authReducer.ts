@@ -1,8 +1,9 @@
 import {ThunkAction} from "redux-thunk";
 import {RootStateRedux} from "./redux-store";
-import {usersAPI} from "../api/api";
+import {authAPI, usersAPI} from "../api/api";
 
 const SET_USERS_DATA = "SET_USERS_DATA";
+const LOGIN_USER = "LOGIN_USER";
 
 export type loginPageType = {
     id: number | null
@@ -15,8 +16,11 @@ type setUsersDataAC = {
     type: "SET_USERS_DATA"
     data: loginPageType
 }
+type LoginUserAC = {
+    type: "LOGIN_USER"
+}
 
-type ActionsTypes = setUsersDataAC
+type ActionsTypes = setUsersDataAC|LoginUserAC
 
 let initialState: loginPageType = {
     id: null,
@@ -46,7 +50,17 @@ type ThunkType = ThunkAction<Promise<void>, RootStateRedux, unknown, ActionsType
 
 export const checkLoginStateThunk = ():ThunkType =>{
     return async (dispatch)=>{
-        usersAPI.checkLoginState().then(response => {
+        authAPI.me().then(response => {
+            if(response.data.resultCode === 0) {
+               dispatch(setUsersDataAC(response.data.data));
+            }
+
+        })
+    }
+}
+export const LoginStateThunk = (email:string,password:string,rememberMe:boolean):ThunkType =>{
+    return async (dispatch)=>{
+        authAPI.login(email, password, rememberMe).then(response => {
             if(response.data.resultCode === 0) {
                dispatch(setUsersDataAC(response.data.data));
             }

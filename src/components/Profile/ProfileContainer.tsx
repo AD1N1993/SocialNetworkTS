@@ -3,19 +3,28 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import {RouteComponentProps} from "react-router";
-import {getProfileThunk, ProfilePageType, ProfileType} from "../../redux/profileReducer";
+import {
+    getProfileThunk,
+    getUserStatusThunk,
+    ProfilePageType,
+    ProfileType,
+    updateUserStatusThunk
+} from "../../redux/profileReducer";
 import {RootStateRedux} from "../../redux/redux-store";
-import {Redirect} from "react-router-dom";
+import {compose} from "redux";
 
 type PathParameterType = {
     userId: string
 }
 type mapStateToPropsType = {
     profile: ProfileType | null
-    isAuth:boolean
+    status:string
 }
+
 type mapDispatchToPropsType = {
     getProfileThunk:(userId:number)=> void
+    getUserStatusThunk:(userId:number)=> void
+    updateUserStatusThunk: (status:string)=>void
 }
 type OwnPropsTypes = {}
 
@@ -30,26 +39,29 @@ class ProfileContainer extends React.Component<ProfileTypeProps, ProfilePageType
 
     componentDidMount() {
         let userId = this.props.match.params.userId;
-        if (!userId) userId = "2"
-       this.props.getProfileThunk(+userId);
+        if (!userId) userId = "6731"
+        this.props.getProfileThunk(+userId);
+        this.props.getUserStatusThunk(+userId);
     }
 
-    render() {
-        if(!this.props.isAuth) return <Redirect  to={"/login"}/>
 
+    render() {
         return (
-            <Profile profile={this.props.profile} />
+            <Profile profile={this.props.profile} status={this.props.status} updateUserStatusThunk={this.props.updateUserStatusThunk}/>
         );
     };
 }
 
+
 let mapStateToProps = (state: RootStateRedux): mapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth
+        status: state.profilePage.status
     }
 }
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
-export default connect<mapStateToPropsType, mapDispatchToPropsType, OwnPropsTypes, RootStateRedux>(mapStateToProps, {getProfileThunk})(WithUrlDataContainerComponent);
+export default compose<React.ComponentType>(
+    connect<mapStateToPropsType, mapDispatchToPropsType, OwnPropsTypes, RootStateRedux>(mapStateToProps, {getProfileThunk, getUserStatusThunk,updateUserStatusThunk}),
+    withRouter,
+)(ProfileContainer)

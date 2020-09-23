@@ -12,6 +12,8 @@ import {
 import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/preloader";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 type mapStateToPropsType = {
@@ -75,12 +77,14 @@ let mapStateToProps = (state: RootStateRedux) => {
     }
 }
 
-
-export default connect<mapStateToPropsType, mapDispatchToPropsType, OwnPropsTypes, RootStateRedux>(mapStateToProps,
-    {
-        setCurrentPage,
-        setTotalCountUsers,
-        getUsersThunkCreator,
-        followThunkCreator,
-        unFollowThunkCreator
-    })(UsersContainer)
+export default compose<React.ComponentType>(
+    withAuthRedirect,
+    connect<mapStateToPropsType, mapDispatchToPropsType, OwnPropsTypes, RootStateRedux>(mapStateToProps,
+        {
+            setCurrentPage,
+            setTotalCountUsers,
+            getUsersThunkCreator,
+            followThunkCreator,
+            unFollowThunkCreator
+        })
+)(UsersContainer)
