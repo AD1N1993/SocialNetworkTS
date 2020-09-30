@@ -1,7 +1,5 @@
 
 const ADD_MESSAGE = "ADD-MESSAGE"
-const ON_CHANGE_MESSAGE_TEXT = "ON CHANGE MESSAGE TEXT";
-
 
 export type DialogsDataType = {
     id: number,
@@ -15,13 +13,12 @@ export type MessagesDataType = {
 export type MessagesPage = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
-    newMessageText: string
 }
-
 
 
 type AddMessageActionType = {
     type: "ADD-MESSAGE"
+    message: string
 }
 
 type OnChangeTextMessageActionType = {
@@ -49,37 +46,25 @@ let initialState: MessagesPage = {
         {id: 5, message: "zuMMEr"},
         {id: 6, message: "Dasdas"}
     ],
-    newMessageText: ""
 }
 
 const dialogsReducer = (state: MessagesPage = initialState, action: ActionsTypes): MessagesPage => {
 
     switch (action.type) {
-        case ON_CHANGE_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.textMessage
-            };
-
         case ADD_MESSAGE:
             const newMessage: MessagesDataType = {
                 id: new Date().getTime(),
-                message: state.newMessageText,
+                message: action.message,
             }
-
             return {
                 ...state,
-                newMessageText: "",
                 messagesData: [...state.messagesData, newMessage],
             }
-
         default:
             return state
     }
 }
-export const addMessageActionCreator = (): ActionsTypes => ({type: ADD_MESSAGE});
+export const addMessageActionCreator = (message:string): ActionsTypes => ({type: ADD_MESSAGE, message});
 
-export const updateMessageTextActionCreator = (textMessage: string): ActionsTypes =>
-    ({type: ON_CHANGE_MESSAGE_TEXT, textMessage: textMessage});
 
 export default dialogsReducer;

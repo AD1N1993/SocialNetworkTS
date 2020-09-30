@@ -9,18 +9,13 @@ import {Dispatch} from "redux";
 let mapStateToProps = (state: RootStateRedux)  => {
     return {
         postData: state.profilePage.postData,
-        newPostText: state.profilePage.newPostText
     }
 };
 let mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        addPostOnClick: () => {
-            dispatch(addPostActionCreator())
+        addPostOnClick: (postBody:string) => {
+            dispatch(addPostActionCreator(postBody))
         },
-        onChangeTextArea: (textPost: string) => {
-            let action = updatePostTextActionCreator(textPost)
-            dispatch(action);
-        }
     }
 };
 

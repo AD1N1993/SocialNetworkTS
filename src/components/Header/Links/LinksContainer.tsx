@@ -1,7 +1,7 @@
 import React from "react";
 import Links from "./Links"
 import {connect} from "react-redux";
-import {checkLoginStateThunk, loginPageType} from "../../../redux/authReducer";
+import {checkLoginStateThunk, loginPageType, LogoutThunk} from "../../../redux/authReducer";
 import {RootStateRedux} from "../../../redux/redux-store";
 
 
@@ -10,6 +10,7 @@ type mapStateToPropsType = {
 }
 type mapDispatchToPropsType = {
     checkLoginStateThunk: () => void
+    LogoutThunk:()=>void
 }
 type OwnPropsTypes = {}
 
@@ -24,7 +25,7 @@ class LinksContainer extends React.Component<LinksTypeProps, loginPageType> {
     }
 
     render() {
-        return <Links login={this.props.data.login} isAuth={this.props.data.isAuth}/>;
+        return <Links login={this.props.data.login} isAuth={this.props.data.isAuth} logout={this.props.LogoutThunk}/>;
     }
 }
 
@@ -35,4 +36,4 @@ const mapStateToProps = (state: RootStateRedux) => {
 }
 
 
-export default connect<mapStateToPropsType, mapDispatchToPropsType, OwnPropsTypes, RootStateRedux>(mapStateToProps, {checkLoginStateThunk})(LinksContainer);
+export default connect<mapStateToPropsType, mapDispatchToPropsType, OwnPropsTypes, RootStateRedux>(mapStateToProps, {checkLoginStateThunk,LogoutThunk})(LinksContainer);

@@ -40,6 +40,7 @@ export type ProfileType = {
 
 type AddPostActionType = {
     type: "ADD-POST"
+    postBody: string
 }
 
 type OnChangeTextAreaActionType = {
@@ -65,7 +66,6 @@ export type ActionsTypes = AddPostActionType
 
 export type ProfilePageType = {
     postData: Array<PostDataType>
-    newPostText: string
     profile: ProfileType | null
     status: string
 }
@@ -77,7 +77,6 @@ let initialState: ProfilePageType = {
         {id: 3, post: "It's third post", likes: 22},
         {id: 4, post: "It's fourth post", likes: 1},
     ],
-    newPostText: "",
     profile: null,
     status: "",
 }
@@ -87,20 +86,13 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
         case ADD_POST:
             let newPost: PostDataType = {
                 id: new Date().getTime(),
-                post: state.newPostText,
+                post: action.postBody,
                 likes: 0
             };
             return {
                 ...state,
-                newPostText: "",
                 postData: [...state.postData, newPost]
             }
-
-        case ON_CHANGE_TEXTAREA:
-            return {
-                ...state,
-                newPostText: action.textPost
-            };
         case SET_USER_PROFILE:
             return {
                 ...state, profile: action.profile
@@ -115,7 +107,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
     }
 }
 
-export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST});
+export const addPostActionCreator = (postBody:string): AddPostActionType => ({type: ADD_POST, postBody});
 
 export const updatePostTextActionCreator = (textPost: string): OnChangeTextAreaActionType =>
     ({type: ON_CHANGE_TEXTAREA, textPost: textPost});

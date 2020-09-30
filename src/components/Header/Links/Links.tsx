@@ -4,6 +4,7 @@ import {NavLink} from "react-router-dom";
 
 type LinksTypeProps = {
     login: string | null
+    logout: ()=>void
     isAuth: boolean
 }
 
@@ -22,7 +23,9 @@ const Links = (props: LinksTypeProps) => {
                 <li className={s.headerNavLink}><a href="#">Home</a></li>
                 <li className={s.headerNavLink}><a href="#">Find Friends</a></li>
                 <li className={s.headerNavLink}><a href="#">Create</a></li>
-                {props.isAuth ? props.login : <NavLink className={s.headerNavLink} to={'/login'}>Login</NavLink>}
+                {props.isAuth
+                    ? <>{props.login} - <button onClick={props.logout}>Logout</button> </>
+                    : <NavLink className={s.headerNavLink} to={'/login'}>Login</NavLink>}
 
             </ul>
         </div>

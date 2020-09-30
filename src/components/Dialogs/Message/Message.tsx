@@ -4,6 +4,11 @@ import s from "./Message.module.scss"
 import {DialogItem} from "../DialogItem/DialogItem";
 import {DialogsDataType, MessagesDataType} from "../../../redux/dialogsReducer";
 import { Redirect } from "react-router-dom";
+import {Field, InjectedFormProps} from "redux-form";
+import {reduxForm} from "redux-form";
+import {TextArea} from "../../../common/FormsControls/FormsControls";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
+
 
 type MessageTypeProps = {
     message: string
@@ -14,13 +19,11 @@ type MessageTypeProps = {
 export type MapStateToPropsTypes = {
     messagesData: Array<MessagesDataType>
     dialogsData:Array<DialogsDataType>
-    newMessageText: string
     isAuth: boolean
 }
 
 export type MapDispatchToPropsTypes = {
-    onChangeTextMessage:(messageText:string)=> void
-    sendMessage:()=> void
+    sendMessage:(message:string)=> void
 }
 
 export type OwnPropsTypes = {
@@ -37,12 +40,9 @@ export function Messages(props: MessagesDataPropsType) {
 
     let messageElements = props.messagesData.map(message => <Message message={message.message} id={message.id}/>)
 
-    const onChangeTextMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.onChangeTextMessage(e.currentTarget.value);
 
-    }
-    const sendMessage = () => {
-        props.sendMessage();
+    const onSubmit = (formData:MessageFormType) =>{
+       props.sendMessage(formData.message);
     }
     if(!props.isAuth) return <Redirect  to={"/login"}/>
     return (
@@ -50,8 +50,30 @@ export function Messages(props: MessagesDataPropsType) {
         <div className={s.dialogsMessages}>
             <DialogItem dialogsData={props.dialogsData}/>
             {messageElements}
-            <textarea onChange={onChangeTextMessage} value={props.newMessageText} placeholder={"Enter your message"}/>
-            <button onClick={sendMessage}>send</button>
+            {/*<textarea onChange={onChangeTextMessage} value={props.newMessageText} placeholder={"Enter your message"}/>*/}
+            {/*<button onClick={sendMessage}>send</button>*/}
+            <ReduxMessageForm onSubmit={onSubmit}/>
         </div>
     );
 }
+
+
+type MessageFormType = {
+    message: string
+}
+const maxLength = maxLengthCreator(10);
+const MessageForm:React.FC<InjectedFormProps<MessageFormType>> = (props) => {
+
+    return(
+        <>
+            <form action="#" onSubmit={props.handleSubmit}>
+                <Field type="text" placeholder={"message"} name={"message"} id={"message"} component={TextArea}
+                       validate={[required,maxLength]}
+                />
+                <button>send</button>
+            </form>
+        </>
+    );
+}
+
+const ReduxMessageForm = reduxForm<MessageFormType>({form: "message"})(MessageForm)

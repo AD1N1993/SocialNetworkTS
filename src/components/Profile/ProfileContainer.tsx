@@ -34,7 +34,6 @@ type ProfileTypeProps =
     & OwnPropsTypes
     & RouteComponentProps<PathParameterType>
 
-
 class ProfileContainer extends React.Component<ProfileTypeProps, ProfilePageType> {
 
     componentDidMount() {
@@ -44,7 +43,6 @@ class ProfileContainer extends React.Component<ProfileTypeProps, ProfilePageType
         this.props.getUserStatusThunk(+userId);
     }
 
-
     render() {
         return (
             <Profile profile={this.props.profile} status={this.props.status} updateUserStatusThunk={this.props.updateUserStatusThunk}/>
@@ -52,14 +50,12 @@ class ProfileContainer extends React.Component<ProfileTypeProps, ProfilePageType
     };
 }
 
-
 let mapStateToProps = (state: RootStateRedux): mapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status
     }
 }
-
 
 export default compose<React.ComponentType>(
     connect<mapStateToPropsType, mapDispatchToPropsType, OwnPropsTypes, RootStateRedux>(mapStateToProps, {getProfileThunk, getUserStatusThunk,updateUserStatusThunk}),
