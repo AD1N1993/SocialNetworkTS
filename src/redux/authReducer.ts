@@ -1,6 +1,7 @@
 import {ThunkAction} from "redux-thunk";
 import {RootStateRedux} from "./redux-store";
 import {authAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const SET_USERS_DATA = "SET_USERS_DATA";
 
@@ -60,9 +61,15 @@ export const checkLoginStateThunk = ():ThunkType =>{
 }
 export const LoginThunk = (email:string,password:string,rememberMe:boolean):ThunkType =>{
     return async (dispatch)=>{
+
         authAPI.login(email, password, rememberMe).then(response => {
             if(response.data.resultCode === 0) {
                 dispatch( checkLoginStateThunk());
+            }else {
+                debugger
+                let message = response.data.messages.length > 0 ? response.data.message[0] : "Email or password" +
+                    " incorrect";
+                dispatch(stopSubmit("login",{_error: message}));
             }
 
         })

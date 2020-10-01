@@ -1,18 +1,18 @@
 import React from "react";
-import {reduxForm, Field, InjectedFormProps} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../../common/FormsControls/FormsControls";
-import {maxLengthCreator, required} from "../../utils/validators/validators";
+import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {LoginThunk} from "../../redux/authReducer";
-import { Redirect } from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import {RootStateRedux} from "../../redux/redux-store";
+import s from "../../common/FormsControls/FormsControl.module.scss"
 
 type FormDataType = {
     login: string
     password: string
     rememberMe: boolean
 }
-const maxLength = maxLengthCreator(20);
 
 export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
@@ -23,7 +23,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                            placeholder={"Login"}
                            name={"login"} id={"login"}
                            component={Input}
-                           validate={[required,maxLength]}
+                           validate={[required]}
                     />
                 </label>
                 <label htmlFor="password">
@@ -31,7 +31,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                            placeholder={"Password"}
                            name={"password"} id={"password"}
                            component={Input}
-                           validate={[required,maxLength]}
+                           validate={[required]}
                     />
                 </label>
                 <label htmlFor="checkbox">
@@ -42,6 +42,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                     />
                     remember me
                 </label>
+                <div className={s.formSummaryError}>{props.error ? props.error :""}</div>
                 <button>Login</button>
             </form>
         </>
