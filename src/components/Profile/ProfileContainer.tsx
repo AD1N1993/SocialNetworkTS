@@ -41,7 +41,11 @@ class ProfileContainer extends React.Component<ProfileTypeProps, ProfilePageType
 
     componentDidMount() {
         let userId: number | null = +this.props.match.params.userId;
-        if (!userId) userId = this.props.userId
+        if (!userId) {
+            userId = this.props.userId;
+
+        } if(!userId) this.props.history.push("/login")
+
         if (typeof userId === "number") {
             this.props.getProfileThunk(userId);
             this.props.getUserStatusThunk(userId);
@@ -49,7 +53,7 @@ class ProfileContainer extends React.Component<ProfileTypeProps, ProfilePageType
     }
 
     render() {
-        if (!this.props.isAuth) return <Redirect to={"/login"}/>
+        console.log("Render profile")
         return (
             <Profile profile={this.props.profile} status={this.props.status} updateUserStatusThunk={this.props.updateUserStatusThunk}/>
         );
@@ -57,6 +61,7 @@ class ProfileContainer extends React.Component<ProfileTypeProps, ProfilePageType
 }
 
 let mapStateToProps = (state: RootStateRedux): mapStateToPropsType => {
+    console.log("mapStateProfile")
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,

@@ -51,7 +51,7 @@ type ThunkType = ThunkAction<Promise<void>, RootStateRedux, unknown, ActionsType
 
 export const checkLoginStateThunk = ():ThunkType =>{
     return async (dispatch)=>{
-        authAPI.me().then(response => {
+        return authAPI.me().then(response => {
             if(response.data.resultCode === 0) {
                dispatch(setUsersDataAC(response.data.data, true));
             }
