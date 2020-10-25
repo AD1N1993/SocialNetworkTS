@@ -53,7 +53,6 @@ class ProfileContainer extends React.Component<ProfileTypeProps, ProfilePageType
     }
 
     render() {
-        console.log("Render profile")
         return (
             <Profile profile={this.props.profile} status={this.props.status} updateUserStatusThunk={this.props.updateUserStatusThunk}/>
         );
@@ -61,7 +60,6 @@ class ProfileContainer extends React.Component<ProfileTypeProps, ProfilePageType
 }
 
 let mapStateToProps = (state: RootStateRedux): mapStateToPropsType => {
-    console.log("mapStateProfile")
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,

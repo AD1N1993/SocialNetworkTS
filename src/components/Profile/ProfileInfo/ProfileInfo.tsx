@@ -3,6 +3,7 @@ import s from "./ProfileInfo.module.scss";
 import {ContactType, ProfileType} from "../../../redux/profileReducer";
 import {Preloader} from "../../../common/preloader/preloader";
 import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null
@@ -16,8 +17,9 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
     }
     let nameContacts = Object.keys(props.profile.contacts);
 
-
+    console.log("rednder")
     return (
+
         <div className={s.content}>
             <div className={s.profileCover}>
                 <div className={s.userAvatar}><img src={props.profile.photos.large} alt="ava"/></div>
@@ -32,7 +34,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 </ul>
             </div>
             <div className="descr">{props.profile.aboutMe}</div>
-            <ProfileStatus status={props.status} updateUserStatusThunk={props.updateUserStatusThunk}/>
+            <ProfileStatusWithHooks status={props.status} updateUserStatusThunk={props.updateUserStatusThunk}/>
         </div>
     );
 };

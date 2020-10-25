@@ -6,6 +6,7 @@ const ADD_POST = "ADD-POST";
 const ON_CHANGE_TEXTAREA = "ON-CHANGE-TEXTAREA";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_USER_STATUS = "SET_STATUS";
+const DELETE_POST = "DELETE_POST";
 
 
 export type PostDataType = {
@@ -62,6 +63,7 @@ export type ActionsTypes = AddPostActionType
     | OnChangeTextAreaActionType
     | SetUserProfile
     | SetUserStatus
+    | ReturnType<typeof deletePostAC>
 
 
 export type ProfilePageType = {
@@ -101,6 +103,10 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
             return {
                 ...state, status: action.status
             }
+        case DELETE_POST:
+            return {
+                ...state, postData: state.postData.filter(post => post.id !== action.id)
+            }
 
         default:
             return state
@@ -116,6 +122,7 @@ export const setUserProfileAC = (profile: ProfileType): SetUserProfile =>
     ({type: SET_USER_PROFILE, profile});
 export const setUserStatusAC = (status: string): SetUserStatus =>
     ({type: SET_USER_STATUS, status});
+export const deletePostAC = (id: number)  => ({type: DELETE_POST, id} as const);
 
 
 type ThunkProfileType = ThunkAction<Promise<void>, RootStateRedux, unknown, ActionsTypes>

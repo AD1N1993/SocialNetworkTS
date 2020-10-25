@@ -32,6 +32,7 @@ const MyPosts = (props: PostDataTypePropsType) => {
     }
 
     return (
+
         <div className={s.posts}>
             <h2 className={s.title}>My posts</h2>
             {posts}

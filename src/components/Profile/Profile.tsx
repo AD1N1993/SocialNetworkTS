@@ -12,6 +12,7 @@ type ProfilePropsType = {
 }
 
 const Profile = (props: ProfilePropsType) => {
+    console.log("rednder")
     return (
         <div className={s.content}>
             <ProfileInfo profile={props.profile} status={props.status} updateUserStatusThunk={props.updateUserStatusThunk}/>
