@@ -2,7 +2,6 @@ import React from "react";
 import s from "./ProfileInfo.module.scss";
 import {ContactType, ProfileType} from "../../../redux/profileReducer";
 import {Preloader} from "../../../common/preloader/preloader";
-import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 type ProfileInfoPropsType = {

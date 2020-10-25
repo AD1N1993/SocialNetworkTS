@@ -9,6 +9,77 @@ const SET_USER_STATUS = "SET_STATUS";
 const DELETE_POST = "DELETE_POST";
 
 
+let initialState: ProfilePageType = {
+    postData: [
+        {id: 1, post: "It's first post", likes: 10},
+        {id: 2, post: "It's second post", likes: 110},
+        {id: 3, post: "It's third post", likes: 22},
+        {id: 4, post: "It's fourth post", likes: 1},
+    ],
+    profile: null,
+    status: "",
+}
+
+const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
+    switch (action.type) {
+        case ADD_POST:
+            let newPost: PostDataType = {
+                id: new Date().getTime(),
+                post: action.postBody,
+                likes: 0
+            };
+            return {
+                ...state,
+                postData: [...state.postData, newPost]
+            }
+        case SET_USER_PROFILE:
+            return {
+                ...state, profile: action.profile
+            }
+        case SET_USER_STATUS:
+            return {
+                ...state, status: action.status
+            }
+        case DELETE_POST:
+            return {
+                ...state, postData: state.postData.filter(post => post.id !== action.id)
+            }
+
+        default:
+            return state
+    }
+}
+//actions
+export const addPostActionCreator = (postBody: string): AddPostActionType => ({type: ADD_POST, postBody});
+
+export const updatePostTextActionCreator = (textPost: string): OnChangeTextAreaActionType =>
+    ({type: ON_CHANGE_TEXTAREA, textPost: textPost});
+
+export const setUserProfileAC = (profile: ProfileType): SetUserProfile =>
+    ({type: SET_USER_PROFILE, profile});
+export const setUserStatusAC = (status: string): SetUserStatus =>
+    ({type: SET_USER_STATUS, status});
+export const deletePostAC = (id: number) => ({type: DELETE_POST, id} as const);
+
+//thunks
+export const getProfileThunk = (userId: number): ThunkProfileType => async (dispatch) => {
+    let response = await profileAPI.getProfile(userId);
+    dispatch(setUserProfileAC(response.data));
+}
+export const getUserStatusThunk = (userId: number): ThunkProfileType => async (dispatch) => {
+    let response = await profileAPI.getStatus(userId)
+    dispatch(setUserStatusAC(response.data));
+}
+export const updateUserStatusThunk = (status: string): ThunkProfileType => async (dispatch) => {
+    let response = await profileAPI.updateStatus(status)
+    if (response.data.resultcode === 0)
+        dispatch(setUserStatusAC(status));
+}
+
+
+//types
+type ThunkProfileType = ThunkAction<Promise<void>, RootStateRedux, unknown, ActionsTypes>
+
 export type PostDataType = {
     id: number
     post: string
@@ -71,83 +142,4 @@ export type ProfilePageType = {
     profile: ProfileType | null
     status: string
 }
-
-let initialState: ProfilePageType = {
-    postData: [
-        {id: 1, post: "It's first post", likes: 10},
-        {id: 2, post: "It's second post", likes: 110},
-        {id: 3, post: "It's third post", likes: 22},
-        {id: 4, post: "It's fourth post", likes: 1},
-    ],
-    profile: null,
-    status: "",
-}
-
-const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
-    switch (action.type) {
-        case ADD_POST:
-            let newPost: PostDataType = {
-                id: new Date().getTime(),
-                post: action.postBody,
-                likes: 0
-            };
-            return {
-                ...state,
-                postData: [...state.postData, newPost]
-            }
-        case SET_USER_PROFILE:
-            return {
-                ...state, profile: action.profile
-            }
-        case SET_USER_STATUS:
-            return {
-                ...state, status: action.status
-            }
-        case DELETE_POST:
-            return {
-                ...state, postData: state.postData.filter(post => post.id !== action.id)
-            }
-
-        default:
-            return state
-    }
-}
-
-export const addPostActionCreator = (postBody:string): AddPostActionType => ({type: ADD_POST, postBody});
-
-export const updatePostTextActionCreator = (textPost: string): OnChangeTextAreaActionType =>
-    ({type: ON_CHANGE_TEXTAREA, textPost: textPost});
-
-export const setUserProfileAC = (profile: ProfileType): SetUserProfile =>
-    ({type: SET_USER_PROFILE, profile});
-export const setUserStatusAC = (status: string): SetUserStatus =>
-    ({type: SET_USER_STATUS, status});
-export const deletePostAC = (id: number)  => ({type: DELETE_POST, id} as const);
-
-
-type ThunkProfileType = ThunkAction<Promise<void>, RootStateRedux, unknown, ActionsTypes>
-export const getProfileThunk = (userId: number): ThunkProfileType => {
-    return async (dispatch) => {
-        profileAPI.getProfile(userId).then(response => {
-            dispatch(setUserProfileAC(response.data));
-        })
-    }
-}
-export const getUserStatusThunk = (userId: number): ThunkProfileType => {
-    return async (dispatch) => {
-        profileAPI.getStatus(userId).then(response => {
-            dispatch(setUserStatusAC(response.data));
-        })
-    }
-}
-export const updateUserStatusThunk = (status: string): ThunkProfileType => {
-    return async (dispatch) => {
-        profileAPI.updateStatus(status).then(response => {
-            if (response.data.resultcode === 0)
-                dispatch(setUserStatusAC(status));
-        })
-    }
-}
-
-
 export default profileReducer;

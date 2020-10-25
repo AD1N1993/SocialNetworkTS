@@ -14,10 +14,10 @@ type FormDataType = {
     rememberMe: boolean
 }
 
-export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({error, handleSubmit}) => {
     return (
         <>
-            <form onSubmit={props.handleSubmit} action="#">
+            <form onSubmit={handleSubmit} action="#">
                 <label htmlFor="login">
                     <Field type="text"
                            placeholder={"Login"}
@@ -42,7 +42,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                     />
                     remember me
                 </label>
-                <div className={s.formSummaryError}>{props.error ? props.error :""}</div>
+                <div className={s.formSummaryError}>{error ? error : ""}</div>
                 <button>Login</button>
             </form>
         </>
@@ -52,19 +52,19 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 const ReduxLoginForm = reduxForm<FormDataType>({form: "login"})(LoginForm);
 
 type mapDispatchToPropsType = {
-    LoginThunk:(email:string,password:string,rememberMe:boolean)=>void
+    LoginThunk: (email: string, password: string, rememberMe: boolean) => void
 }
 type mapStateToPropsType = {
     isAuth: boolean
 }
-type OwnPropsType= {}
-type LoginPropsType = mapDispatchToPropsType&mapStateToPropsType&OwnPropsType
+type OwnPropsType = {}
+type LoginPropsType = mapDispatchToPropsType & mapStateToPropsType & OwnPropsType
 
-export const Login = (props:LoginPropsType) => {
+export const Login = (props: LoginPropsType) => {
     const onSubmit = (formData: FormDataType) => {
-       props.LoginThunk(formData.login,formData.password, formData.rememberMe)
+        props.LoginThunk(formData.login, formData.password, formData.rememberMe)
     }
-    if(props.isAuth) return <Redirect to={"/profile"}/>
+    if (props.isAuth) return <Redirect to={"/profile"}/>
     return (
         <>
             <h1>LOGIN</h1>
@@ -73,9 +73,9 @@ export const Login = (props:LoginPropsType) => {
     );
 }
 const mapStateToProps = (state: RootStateRedux) => {
-    return{
+    return {
         isAuth: state.auth.isAuth
     }
 }
 
-export const LoginContainer = connect<mapStateToPropsType,mapDispatchToPropsType,OwnPropsType,RootStateRedux>(mapStateToProps,{LoginThunk})(Login);
+export const LoginContainer = connect<mapStateToPropsType, mapDispatchToPropsType, OwnPropsType, RootStateRedux>(mapStateToProps, {LoginThunk})(Login);
