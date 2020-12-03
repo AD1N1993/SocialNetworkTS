@@ -59,12 +59,12 @@ export const checkLoginStateThunk = (): ThunkType => async (dispatch) => {
 }
 
 export const LoginThunk = (email: string, password: string, rememberMe: boolean): ThunkType => async (dispatch) => {
-
+debugger
     let response = await authAPI.login(email, password, rememberMe)
     if (response.data.resultCode === 0) {
         await dispatch(checkLoginStateThunk());
     } else {
-        let message = response.data.messages.length > 0 ? response.data.message[0] : "Email or password" +
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : "Email or password" +
             " incorrect";
         dispatch(stopSubmit("login", {_error: message}));
     }

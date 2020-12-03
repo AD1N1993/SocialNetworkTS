@@ -16,7 +16,6 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
     }
     let nameContacts = Object.keys(props.profile.contacts);
 
-    console.log("rednder")
     return (
 
         <div className={s.content}>

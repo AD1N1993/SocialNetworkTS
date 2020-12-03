@@ -1,7 +1,7 @@
 import {UserDataType} from "../../redux/usersReducer";
 import React from "react";
-import {Paginator} from "../../common/Paginator/Paginator";
 import {User} from "./User";
+import {Paginator} from "../../common/Paginator/Paginator";
 
 type UsersPropsType = {
     totalCount: number
@@ -18,7 +18,7 @@ type UsersPropsType = {
 export const Users = (props: UsersPropsType) => {
     return (
         <>
-            <Paginator totalCount={props.totalCount} pageSize={props.pageSize} currentPage={props.currentPage} onChangePage={props.onChangePage}/>
+            <Paginator totalItemsCount={props.totalCount} pageSize={props.pageSize} currentPage={props.currentPage} portionSize={7} onChangePage={props.onChangePage}/>
             {props.usersData.map((user: UserDataType) => <User key = {user.id}
                                                                user={user}
                                                                unFollowThunkCreator={props.unFollowThunkCreator}

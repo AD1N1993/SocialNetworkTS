@@ -20,7 +20,7 @@ const Links = (props: LinksTypeProps) => {
                         Profile
                     </NavLink>
                 </li>
-                <li className={s.headerNavLink}><a href="#">Home</a></li>
+                <li className={s.headerNavLink}><a href="#" >Home</a></li>
                 <li className={s.headerNavLink}><a href="#">Find Friends</a></li>
                 <li className={s.headerNavLink}><a href="#">Create</a></li>
                 {props.isAuth
