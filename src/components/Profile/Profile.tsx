@@ -8,14 +8,19 @@ type ProfilePropsType = {
     profile: ProfileType | null
     status: string
     updateUserStatusThunk: (status: string) => void
-
+    owner:boolean
+    updateProfilePhoto: (photo: Blob)=> void
 }
 
 const Profile = (props: ProfilePropsType) => {
     console.log("rednder")
     return (
         <div className={s.content}>
-            <ProfileInfo profile={props.profile} status={props.status} updateUserStatusThunk={props.updateUserStatusThunk}/>
+            <ProfileInfo profile={props.profile}
+                         status={props.status}
+                         updateUserStatusThunk={props.updateUserStatusThunk}
+                         updateProfilePhoto={props.updateProfilePhoto}
+                         owner={props.owner}/>
             <MyPostsContainer/>
         </div>
     );

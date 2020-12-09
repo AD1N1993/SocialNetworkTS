@@ -7,7 +7,7 @@ import {
     getProfileThunk,
     getUserStatusThunk,
     ProfilePageType,
-    ProfileType,
+    ProfileType, updateUserPhotoThunk,
     updateUserStatusThunk
 } from "../../redux/profileReducer";
 import {RootStateRedux} from "../../redux/redux-store";
@@ -19,15 +19,16 @@ type PathParameterType = {
 }
 type mapStateToPropsType = {
     profile: ProfileType | null
-    status:string
+    status: string
     userId: number | null
-    isAuth:boolean
+    isAuth: boolean
 }
 
 type mapDispatchToPropsType = {
-    getProfileThunk:(userId:number)=> void
-    getUserStatusThunk:(userId:number)=> void
-    updateUserStatusThunk: (status:string)=>void
+    getProfileThunk: (userId: number) => void
+    getUserStatusThunk: (userId: number) => void
+    updateUserStatusThunk: (status: string) => void
+    updateUserPhotoThunk:  (photo: Blob)=> void
 }
 type OwnPropsTypes = {}
 
@@ -38,13 +39,13 @@ type ProfileTypeProps =
     & RouteComponentProps<PathParameterType>
 
 class ProfileContainer extends React.Component<ProfileTypeProps, ProfilePageType> {
-
-    componentDidMount() {
+    refreshProfile() {
         let userId: number | null = +this.props.match.params.userId;
         if (!userId) {
             userId = this.props.userId;
 
-        } if(!userId) this.props.history.push("/login")
+        }
+        if (!userId) this.props.history.push("/login")
 
         if (typeof userId === "number") {
             this.props.getProfileThunk(userId);
@@ -52,9 +53,21 @@ class ProfileContainer extends React.Component<ProfileTypeProps, ProfilePageType
         }
     }
 
+    componentDidMount() {
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileTypeProps>, prevState: Readonly<ProfilePageType>, snapshot?: any) {
+        if(this.props.match.params.userId != prevProps.match.params.userId)
+        this.refreshProfile();
+    }
+
     render() {
         return (
-            <Profile profile={this.props.profile} status={this.props.status} updateUserStatusThunk={this.props.updateUserStatusThunk}/>
+            <Profile profile={this.props.profile} status={this.props.status}
+                     updateUserStatusThunk={this.props.updateUserStatusThunk}
+                     updateProfilePhoto={this.props.updateUserPhotoThunk}
+                     owner={!!this.props.match.params.userId}/>
         );
     };
 }
@@ -69,6 +82,11 @@ let mapStateToProps = (state: RootStateRedux): mapStateToPropsType => {
 }
 
 export default compose<React.ComponentType>(
-    connect<mapStateToPropsType, mapDispatchToPropsType, OwnPropsTypes, RootStateRedux>(mapStateToProps, {getProfileThunk, getUserStatusThunk,updateUserStatusThunk}),
+    connect<mapStateToPropsType, mapDispatchToPropsType, OwnPropsTypes, RootStateRedux>(mapStateToProps, {
+        getProfileThunk,
+        getUserStatusThunk,
+        updateUserStatusThunk,
+        updateUserPhotoThunk,
+    }),
     withRouter,
 )(ProfileContainer)

@@ -1,4 +1,5 @@
 import axios from "axios";
+import {UserDataType} from "../redux/usersReducer";
 
 
 const instance = axios.create({
@@ -10,7 +11,7 @@ const instance = axios.create({
 })
 export const usersAPI = {
     getUsers: (pageNumber: number, pageSize: number) => {
-        return instance.get(`users?page=${pageNumber}&count=${pageSize}`)
+        return instance.get<GetUsersResponse>(`users?page=${pageNumber}&count=${pageSize}`)
             .then(response => {
                 return response.data;
             });
@@ -41,6 +42,15 @@ export const profileAPI = {
     },
     updateStatus(statusValue: string) {
         return instance.put(`profile/status`, {status: statusValue})
+    },
+    updatePhoto(photo: Blob) {
+        const formData = new FormData();
+        formData.append("image", photo);
+        return instance.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
 
@@ -54,4 +64,17 @@ export const authAPI = {
     logout() {
         return instance.delete(`auth/login`)
     },
+}
+//response types
+
+type ResponseType<D = {}> = {
+    data: D
+    status: number
+    statusText: string
+}
+
+type GetUsersResponse = {
+    error: null | string
+    items: Array<UserDataType>
+    totalCount: number
 }

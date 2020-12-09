@@ -7,6 +7,7 @@ const ON_CHANGE_TEXTAREA = "ON-CHANGE-TEXTAREA";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_USER_STATUS = "SET_STATUS";
 const DELETE_POST = "DELETE_POST";
+const UPDATE_PHOTO = "UPDATE_PHOTO";
 
 
 let initialState: ProfilePageType = {
@@ -44,6 +45,10 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
             return {
                 ...state, postData: state.postData.filter(post => post.id !== action.id)
             }
+        case UPDATE_PHOTO:
+            return <ProfilePageType>{
+                ...state, profile: {...state.profile, photos: action.photos}
+            }
 
         default:
             return state
@@ -60,6 +65,7 @@ export const setUserProfileAC = (profile: ProfileType): SetUserProfile =>
 export const setUserStatusAC = (status: string): SetUserStatus =>
     ({type: SET_USER_STATUS, status});
 export const deletePostAC = (id: number) => ({type: DELETE_POST, id} as const);
+export const updatePhotoAC = (photos: PhotosType) => ({type: UPDATE_PHOTO, photos} as const);
 
 //thunks
 export const getProfileThunk = (userId: number): ThunkProfileType => async (dispatch) => {
@@ -74,6 +80,10 @@ export const updateUserStatusThunk = (status: string): ThunkProfileType => async
     let response = await profileAPI.updateStatus(status)
     if (response.data.resultcode === 0)
         dispatch(setUserStatusAC(status));
+}
+export const updateUserPhotoThunk = (photo: Blob): ThunkProfileType => async (dispatch) => {
+    let response = await profileAPI.updatePhoto(photo)
+    dispatch(updatePhotoAC(response.data.data.photos));
 }
 
 
@@ -135,11 +145,13 @@ export type ActionsTypes = AddPostActionType
     | SetUserProfile
     | SetUserStatus
     | ReturnType<typeof deletePostAC>
+    | ReturnType<typeof updatePhotoAC>
 
 
 export type ProfilePageType = {
     postData: Array<PostDataType>
     profile: ProfileType | null
     status: string
+
 }
 export default profileReducer;

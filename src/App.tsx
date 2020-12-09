@@ -23,6 +23,8 @@ class App extends React.Component<AppTypeProps> {
         this.props.initializeApp();
     }
 
+
+
     render() {
         if (!this.props.initialized) return <Preloader/>
         return (
