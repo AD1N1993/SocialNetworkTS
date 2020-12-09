@@ -20,6 +20,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & Prop
                         <Field name="fullName" component={Input}/></div>
                 </div>
                 <ul className={s.about}>
+
                     {Object.keys(profile.contacts).map((n: string) => {
                         return <li key={n}>{n}: {profile?.contacts[n as keyof ContactType]}
                             <Field
@@ -28,6 +29,12 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & Prop
                             />
                         </li>
                     })}
+                    <li> lookingForAJob <Field
+                        name="lookingForAJob"
+                        id="lookingForAJob "
+                        component="input"
+                        type="checkbox"
+                    /></li>
                     <li> lookingForAJobDescription:<Field name="lookingForAJobDescription" component={Input}/></li>
                 </ul>
             </form>)

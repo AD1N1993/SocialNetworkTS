@@ -1,5 +1,6 @@
 import axios from "axios";
 import {UserDataType} from "../redux/usersReducer";
+import {ProfileType} from "../redux/profileReducer";
 
 
 const instance = axios.create({
@@ -51,6 +52,9 @@ export const profileAPI = {
                 'Content-Type': 'multipart/form-data'
             }
         })
+    },
+    updateProfile(updateProfileModel:ProfileType){
+        return instance.put("/profile",{...updateProfileModel, aboutMe:"sss"})
     }
 }
 

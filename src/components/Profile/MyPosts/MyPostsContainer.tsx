@@ -1,5 +1,5 @@
 import React from "react";
-import {addPostActionCreator, updatePostTextActionCreator} from "../../../redux/profileReducer";
+import {addPostActionCreator} from "../../../redux/profileReducer";
 import MyPosts, {MapDispatchToPropsTypes, MapStateToPropsTypes, OwnPropsTypes} from "./MyPosts";
 import {connect} from "react-redux";
 import {RootStateRedux} from "../../../redux/redux-store";

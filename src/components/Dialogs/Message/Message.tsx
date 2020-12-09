@@ -1,11 +1,10 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from "./Message.module.scss"
 
 import {DialogItem} from "../DialogItem/DialogItem";
 import {DialogsDataType, MessagesDataType} from "../../../redux/dialogsReducer";
-import { Redirect } from "react-router-dom";
-import {Field, InjectedFormProps} from "redux-form";
-import {reduxForm} from "redux-form";
+import {Redirect} from "react-router-dom";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {TextArea} from "../../../common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 

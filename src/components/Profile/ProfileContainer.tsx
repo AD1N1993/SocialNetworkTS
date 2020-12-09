@@ -1,18 +1,17 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
-import {RouteComponentProps} from "react-router";
+import {RouteComponentProps, withRouter} from "react-router";
 import {
     getProfileThunk,
     getUserStatusThunk,
     ProfilePageType,
-    ProfileType, updateUserPhotoThunk,
+    ProfileType,
+    updateUserPhotoThunk,
     updateUserStatusThunk
 } from "../../redux/profileReducer";
 import {RootStateRedux} from "../../redux/redux-store";
 import {compose} from "redux";
-import {Redirect} from "react-router-dom";
 
 type PathParameterType = {
     userId: string

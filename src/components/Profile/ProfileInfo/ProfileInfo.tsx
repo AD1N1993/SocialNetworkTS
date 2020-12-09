@@ -1,10 +1,11 @@
 import React, {ChangeEvent, useState} from "react";
 import s from "./ProfileInfo.module.scss";
-import {ContactType, ProfileType} from "../../../redux/profileReducer";
+import {ContactType, ProfileType, updateUserProfileThunk} from "../../../redux/profileReducer";
 import {Preloader} from "../../../common/preloader/preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userLogo from "../../../assets/img/preloader.gif"
 import ProfileDataForm from "./ProfileDataForm";
+import {useDispatch} from "react-redux";
 
 type ProfileInfoPropsType = {
     profile: ProfileType | null
@@ -16,13 +17,12 @@ type ProfileInfoPropsType = {
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
     const [editMode, setEditMode] = useState(false);
+    const dispatch = useDispatch();
+
     const activateMode = () => {
         setEditMode(true);
     }
-    const deactivateMode = () => {
-        setEditMode(false);
 
-    }
     if (!props.profile) {
         return <Preloader/>
     }
@@ -33,7 +33,8 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         }
     }
     const onSubmit = (formData: ProfileType) => {
-       console.log(formData)
+        console.log(formData)
+        dispatch(updateUserProfileThunk(formData));
     }
     return (
         <div className={s.content}>

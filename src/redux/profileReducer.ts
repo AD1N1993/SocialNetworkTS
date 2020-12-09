@@ -8,6 +8,7 @@ const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_USER_STATUS = "SET_STATUS";
 const DELETE_POST = "DELETE_POST";
 const UPDATE_PHOTO = "UPDATE_PHOTO";
+const UPDATE_PROFILE = "UPDATE_PROFILE";
 
 
 let initialState: ProfilePageType = {
@@ -49,6 +50,10 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
             return <ProfilePageType>{
                 ...state, profile: {...state.profile, photos: action.photos}
             }
+     case UPDATE_PROFILE:
+            return <ProfilePageType>{
+                ...state, profile: action.updateProfileModel
+            }
 
         default:
             return state
@@ -66,6 +71,7 @@ export const setUserStatusAC = (status: string): SetUserStatus =>
     ({type: SET_USER_STATUS, status});
 export const deletePostAC = (id: number) => ({type: DELETE_POST, id} as const);
 export const updatePhotoAC = (photos: PhotosType) => ({type: UPDATE_PHOTO, photos} as const);
+export const updateProfileAC = (updateProfileModel: ProfileType) => ({type: UPDATE_PROFILE, updateProfileModel} as const);
 
 //thunks
 export const getProfileThunk = (userId: number): ThunkProfileType => async (dispatch) => {
@@ -84,6 +90,9 @@ export const updateUserStatusThunk = (status: string): ThunkProfileType => async
 export const updateUserPhotoThunk = (photo: Blob): ThunkProfileType => async (dispatch) => {
     let response = await profileAPI.updatePhoto(photo)
     dispatch(updatePhotoAC(response.data.data.photos));
+}
+export const updateUserProfileThunk = (updateProfileModel: ProfileType): ThunkProfileType => async (dispatch) => {
+    let response = await profileAPI.updateProfile(updateProfileModel);
 }
 
 
@@ -146,6 +155,7 @@ export type ActionsTypes = AddPostActionType
     | SetUserStatus
     | ReturnType<typeof deletePostAC>
     | ReturnType<typeof updatePhotoAC>
+    | ReturnType<typeof updateProfileAC>
 
 
 export type ProfilePageType = {

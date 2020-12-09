@@ -1,4 +1,4 @@
-import React, {Suspense} from "react";
+import React from "react";
 import "./App.scss";
 import {Route, withRouter} from "react-router-dom";
 import Header from "./components/Header/Header";
@@ -6,7 +6,6 @@ import Navbar from "./components/Navbar/Nav";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import UsersContainer from "./components/Users/UsersContainer";
-// import ProfileContainer from "./components/Profile/ProfileContainer";
 import {LoginContainer} from "./components/Login/Login";
 import {connect} from "react-redux";
 import {RootStateRedux} from "./redux/redux-store";

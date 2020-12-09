@@ -51,8 +51,7 @@ export const User = ({user,unFollowThunkCreator,followThunkCreator,followingInPr
                         }
                     </div>
                     <div className={"rightPart"}>
-                        {/*<div>{user.location.country}</div>*/}
-                        {/*<div>{user.location.city}</div>*/}
+
                     </div>
                 </div>
         </>
